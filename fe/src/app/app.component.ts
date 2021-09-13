@@ -17,17 +17,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-    this.imageUrl = this.baseUrl + '/api/users/2/profile?filename=5.png';
+    // this.imageUrl = this.baseUrl + '/api/users/2/profile?filename=5.png';
   }
 
   getData() {
-    const headers  = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-    const param = {
-      filename: '5.png'
-    };
-    return this.httpService.get(this.baseUrl + '/api/users/2/profile',  {headers, params: param}).subscribe(res => {
-      console.log(res);
-      // this.imageUrl = res;
-    });
+    // const headers  = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    // const param = {
+    //   filename: '5.png'
+    // };
+    // return this.httpService.get(this.baseUrl + '/api/users/2/profile',  {headers, params: param}).subscribe(res => {
+    //   console.log(res);
+    //   // this.imageUrl = res;
+    // });
   }
 }
