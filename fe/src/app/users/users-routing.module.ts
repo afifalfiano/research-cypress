@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UsersFormComponent } from './users-form/users-form.component';
-import { UsersViewComponent } from './users-view/users-view.component';
-
+import { UserFormComponent } from './user-form/user-form.component';
+import { UserTableComponent } from './user-table/user-table.component';
+import { UserViewComponent } from './user-view/user-view.component';
 import { UsersComponent } from './users.component';
 
 const routes: Routes = [
-  { path: '', component: UsersComponent },
-  { path: 'create', component: UsersFormComponent },
-  { path: 'detail/:id', component: UsersViewComponent },
+  { path: '', component: UserTableComponent },
+  { path: 'create', component: UserFormComponent },
+  { path: 'detail/:id', component: UserViewComponent },
 ];
 
 @NgModule({
