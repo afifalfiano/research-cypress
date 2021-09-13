@@ -21,6 +21,7 @@ export class Company {
     user_update: string;
 
     @OneToOne(() => User, (user) => user.company)
+    @JoinColumn()
     user: User
 
 }

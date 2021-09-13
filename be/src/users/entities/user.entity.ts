@@ -1,5 +1,5 @@
 import { Company } from 'src/company/entities/company.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -40,5 +40,6 @@ export class User {
     user_update: string;
 
     @OneToOne(() => Company, (company) => company.id)
+    @JoinColumn()
     company: Company;
 }
