@@ -8,20 +8,26 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title;
+  title = 'FE';
   baseUrl;
+  imageUrl;
   constructor(private httpService: HttpClient) {
     this.baseUrl = environment.baseUrl;
   }
 
   ngOnInit() {
     this.getData();
+    this.imageUrl = this.baseUrl + '/api/users/2/profile?filename=5.png';
   }
 
   getData() {
     const headers  = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-    return this.httpService.get(this.baseUrl + '/api/hello', {headers}).subscribe(res => {
+    const param = {
+      filename: '5.png'
+    };
+    return this.httpService.get(this.baseUrl + '/api/users/2/profile',  {headers, params: param}).subscribe(res => {
       console.log(res);
+      // this.imageUrl = res;
     });
   }
 }
