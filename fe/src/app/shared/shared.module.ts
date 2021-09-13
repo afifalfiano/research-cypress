@@ -10,6 +10,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { CdkTreeModule } from '@angular/cdk/tree';
 // tslint:disable-next-line:max-line-length
 import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDividerModule, MatExpansionModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatProgressSpinnerModule, MatPaginatorModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatFormFieldModule, MatButtonToggleModule, MatTreeModule } from '@angular/material';
+import { OverviewDetailComponent } from './overview-detail/overview-detail.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -48,6 +49,7 @@ const materialModules = [
   ],
   exports: [
     ...materialModules
-  ]
+  ],
+  declarations: [OverviewDetailComponent]
 })
 export class SharedModule { }
