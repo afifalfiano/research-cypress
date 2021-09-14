@@ -4,4 +4,4 @@
 3. Consume api (angular - on going)
 4. Create ui (angular - on going)
 5. Create testing e2e for crud on user and company (angular - on going)
-6. Add auth on be
+6. Create auth for login and signup on be (nest - on going)
