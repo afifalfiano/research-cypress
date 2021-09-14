@@ -15,7 +15,9 @@ import { ApiService } from 'src/app/shared/services/api.service';
 export class UserFormComponent implements OnInit {
   form: FormGroup;
   public data: any;
+  fileToUpload: File | null = null;
   title: any;
+  dataCompany: any;
 
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private location: Location, private apiService: ApiService) {
@@ -33,6 +35,12 @@ export class UserFormComponent implements OnInit {
     this.doGetCompany();
   }
 
+  previewImage($event) {
+    console.log($event);
+    this.fileToUpload = $event[0];
+    console.log(this.fileToUpload, 'a');
+  }
+
   doInitForm() {
     if (this.data === undefined || this.data === null) {
       this.title = 'Create';
@@ -40,7 +48,7 @@ export class UserFormComponent implements OnInit {
         photo_profile: null,
         firstName: [null, Validators.required],
         lastName: [null, Validators.required],
-        email: [null, Validators.required, Validators.email],
+        email: [null, [Validators.required, Validators.email]],
         phone: [null, Validators.required],
         city: [null, Validators.required],
         country: [null, Validators.required],
@@ -48,7 +56,7 @@ export class UserFormComponent implements OnInit {
       });
     } else {
       this.title = 'Update';
-      // const company = this.data.company !== null ? this.data.company.id : null;
+      const company = this.data.company !== null ? this.data.company.id : null;
       this.form = this.fb.group({
         photo_profile: [this.data.photo_profile],
         firstName: [[this.data.firstName], Validators.required],
@@ -57,7 +65,7 @@ export class UserFormComponent implements OnInit {
         phone: [[this.data.phone], Validators.required],
         city: [[this.data.city], Validators.required],
         country: [[this.data.country], Validators.required],
-        company: [['-'], Validators.required]
+        company: [company, Validators.required]
       });
     }
   }
@@ -65,12 +73,50 @@ export class UserFormComponent implements OnInit {
   doGetCompany() {
     this.apiService.get('/api/company').subscribe((response) => {
       console.log(response);
+      this.dataCompany = response;
+    }, (err: HttpErrorResponse) => {
+      console.log(err);
+    });
+  }
+
+  doCreate(body: any) {
+    this.apiService.create('/api/users', body).subscribe((response: any) => {
+      console.log(response);
+      setTimeout(() => {
+        this.router.navigateByUrl('/users/');
+      }, 3000);
+    }, (err: HttpErrorResponse) => {
+      console.log(err);
+    });
+  }
+  doUpdate(body: any) {
+    this.apiService.update('/api/users/' + this.data.id, body).subscribe((response: any) => {
+      console.log(response);
+      setTimeout(() => {
+        this.router.navigateByUrl('/users/');
+      }, 3000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
     });
   }
 
   onSubmit() {
-    alert('Thanks!');
+    console.log(this.fileToUpload, 'a');
+    // this.form.get('photo_profile').setValue(this.fileToUpload);
+    const formData = new FormData();
+    formData.append('photo_profile', this.fileToUpload);
+    formData.append('firstName', this.form.value.firstName);
+    formData.append('lastName', this.form.value.lastName);
+    formData.append('email', this.form.value.email);
+    formData.append('phone', this.form.value.phone);
+    formData.append('city', this.form.value.city);
+    formData.append('country', this.form.value.country);
+    // formData.append('company', this.form.value.company);
+    const body = this.form.value;
+    if (this.data === undefined) {
+      this.doCreate(formData);
+    } else {
+      this.doCreate(formData);
+    }
   }
 }

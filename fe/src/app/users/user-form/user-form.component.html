@@ -6,9 +6,11 @@
     <mat-card-content>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Photo profile" formControlName="photo_profile">
-          </mat-form-field>
+          <!-- <mat-form-field class="full-width"> -->
+            <!-- <input matInput placeholder="Photo profile" formControlName="photo_profile" type="file"> -->
+            <!-- <button type="button" mat-raised-button color="warn"  md-button (click)="imgFileInput.click()">Add a photo</button> -->
+            <input type="file" formControlName="photo_profile" (change)="previewImage($event.target.files)" style="margin: 20px 0;"/>          
+          <!-- </mat-form-field> -->
         </div>
       </div>
       <div class="row">
@@ -65,10 +67,9 @@
         <div class="col">
           <mat-form-field class="full-width">
             <!-- <input matInput  maxlength="5" placeholder="Postal Code" type="number" formControlName="postalCode"> -->
-            <mat-select formControlName="company" placeholder="Company">
+            <mat-select formControlName="company" placeholder="Company" >
               <mat-option>-</mat-option>
-              <mat-option value="valid">Valid option</mat-option>
-              <mat-option value="invalid">Invalid option</mat-option>
+              <mat-option  *ngFor="let data of dataCompany" [value]="data.id">{{data.company_name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

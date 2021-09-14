@@ -18,7 +18,7 @@ export class ApiService {
   }
 
   create(url: any, body: any): Observable<any> {
-    return this.httpService.post(this.baseUrl, body);
+    return this.httpService.post(this.baseUrl + url, body);
   }
 
   update(url: any, body: any): Observable<any> {

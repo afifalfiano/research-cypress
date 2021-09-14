@@ -25,7 +25,7 @@ export class UsersController {
     )
   create(@Body() createUserDto: CreateUserDto, @UploadedFile() file: Express.Multer.File) {
     console.log(file);
-    createUserDto.photo_profile = file.originalname;
+    createUserDto.photo_profile = file.originalname || file.filename;
     return this.usersService.create(createUserDto);
   }
 

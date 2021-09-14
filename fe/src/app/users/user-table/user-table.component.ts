@@ -1,10 +1,13 @@
 import { DataSource } from '@angular/cdk/collections';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { DetailDataComponent } from 'src/app/shared/detail-data/detail-data.component';
+import { OverviewDetailComponent } from 'src/app/shared/overview-detail/overview-detail.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { UserTableDataSource, UserTableItem } from './user-table-datasource';
 
@@ -21,7 +24,7 @@ export class UserTableComponent implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['no', 'fullname', 'photo', 'email', 'phone', 'city', 'country', 'company', 'aksi'];
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router, private dialog: MatDialog) {}
   ngOnInit() {
     this.doGetData();
   }
@@ -46,7 +49,14 @@ export class UserTableComponent implements AfterViewInit, OnInit {
   }
 
   onBtnViewDetail(data: any) {
-    console.log(data);
+    data.title = 'Detail User';
+    this.dialog.open(DetailDataComponent, {
+      width: '500px',
+      position: {
+        top: '100px'
+      },
+      data
+    });
 
   }
 
@@ -58,7 +68,31 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     console.log(data);
     this.router.navigateByUrl(this.router.url + '/update/' + data.id, { state: { data } });
   }
+
+  onDelete(id: number) {
+    this.apiService.delete('/api/users/' + id).subscribe((response: any) => {
+      console.log(response);
+      this.doGetData();
+    }, (err: HttpErrorResponse) => {
+      console.log(err);
+    });
+  }
   onBtnDelete(data: any) {
     console.log(data);
+    const dialogRef = this.dialog.open(OverviewDetailComponent, {
+      width: '500px',
+      position: {
+        top: '100px'
+      },
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if (result) {
+        this.onDelete(result.id);
+      }
+    });
   }
 }
