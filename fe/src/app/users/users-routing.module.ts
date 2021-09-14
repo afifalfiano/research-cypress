@@ -8,6 +8,7 @@ import { UsersComponent } from './users.component';
 const routes: Routes = [
   { path: '', component: UserTableComponent },
   { path: 'create', component: UserFormComponent },
+  { path: 'update/:id', component: UserFormComponent },
   { path: 'detail/:id', component: UserViewComponent },
 ];
 

@@ -25,3 +25,12 @@
 .col:last-child {
   margin-right: 0;
 }
+
+.mat-card {
+  box-shadow: 0 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 1px rgb(0 0 0 / 14%), 0 0px 0px 1px rgb(0 0 0 / 12%);
+  padding: 30px;
+}
+
+:host ::ng-deep .mat-card-header-text{
+  margin: 0 !important;
+}

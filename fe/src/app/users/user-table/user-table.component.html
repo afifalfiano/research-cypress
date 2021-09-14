@@ -1,25 +1,82 @@
+<div class="grid-container">
+    <div class="add-data">
+        <h1 class="mat-h1">User</h1>
+        <button mat-flat-button color="primary" (click)="onBtnClickAddNewUser()">Tambah</button>
+    </div>
+    <mat-grid-list cols="1" rowHeight="350px">
 <div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
+  <table mat-table class="full-width-table" [dataSource]="dataSource" aria-label="Elements">
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    <ng-container matColumnDef="no">
+      <th mat-header-cell *matHeaderCellDef>No</th>
+      <td mat-cell *matCellDef="let row; let i = index">{{row.no}}</td>
+    </ng-container>
+
+    <!-- Photo Column -->
+    <ng-container matColumnDef="photo">
+      <th mat-header-cell *matHeaderCellDef>Photo</th>
+      <td mat-cell *matCellDef="let row">{{row.photo_profile}}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    <ng-container matColumnDef="fullname">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let row">{{row.firstName + ' ' + row.lastName}}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let row">{{row.email}}</td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let row">{{row.phone}}</td>
+    </ng-container>
+
+    <!-- City Column -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef>City</th>
+      <td mat-cell *matCellDef="let row">{{row.city}}</td>
+    </ng-container>
+
+    <!-- Country Column -->
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef>Country</th>
+      <td mat-cell *matCellDef="let row">{{row.country}}</td>
+    </ng-container>
+
+    <!-- Company Column -->
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef>Company</th>
+      <td mat-cell *matCellDef="let row">{{row.company?.company_name || '-'}}</td>
+    </ng-container>
+
+    <!-- Aksi Column -->
+    <ng-container matColumnDef="aksi">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Aksi</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="action">
+          <button mat-button (click)="onBtnViewDetail(row)">
+            <mat-icon aria-label="remove_red_eye" fontIcon="20">remove_red_eye</mat-icon>
+          </button>
+          <button mat-button (click)="onBtnUpdate(row)">
+            <mat-icon aria-label="edit" fontIcon="20">edit</mat-icon>
+          </button>
+          <button mat-button (click)="onBtnDelete(row)">
+            <mat-icon aria-label="delete" fontIcon="20">delete</mat-icon>
+          </button>
+          </div>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator #paginator
-      [length]="dataSource?.data.length"
-      [pageIndex]="0"
-      [pageSize]="50"
-      [pageSizeOptions]="[25, 50, 100, 250]">
-  </mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+</mat-grid-list>
 </div>

@@ -9,13 +9,17 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkTreeModule } from '@angular/cdk/tree';
 // tslint:disable-next-line:max-line-length
-import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDividerModule, MatExpansionModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatProgressSpinnerModule, MatPaginatorModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatFormFieldModule, MatButtonToggleModule, MatTreeModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDividerModule, MatExpansionModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatProgressSpinnerModule, MatPaginatorModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatFormFieldModule, MatButtonToggleModule, MatTreeModule, MatProgressBarModule, MatGridListModule } from '@angular/material';
 import { OverviewDetailComponent } from './overview-detail/overview-detail.component';
+import { ApiService } from './services/api.service';
+
 
 const materialModules = [
   CdkTreeModule,
+  MatGridListModule,
   MatAutocompleteModule,
   MatButtonModule,
+  MatProgressBarModule,
   MatCardModule,
   MatCheckboxModule,
   MatChipsModule,
@@ -39,7 +43,9 @@ const materialModules = [
   MatButtonToggleModule,
   MatTreeModule,
   OverlayModule,
-  PortalModule
+  PortalModule,
+  FormsModule,
+  ReactiveFormsModule,
 ];
 
 
@@ -50,6 +56,7 @@ const materialModules = [
   exports: [
     ...materialModules
   ],
+  providers: [ApiService],
   declarations: [OverviewDetailComponent]
 })
 export class SharedModule { }

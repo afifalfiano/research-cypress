@@ -24,15 +24,6 @@ import { MatSortModule } from '@angular/material/sort';
     CommonModule,
     UsersRoutingModule,
     SharedModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
   ]
 })
 export class UsersModule { }
