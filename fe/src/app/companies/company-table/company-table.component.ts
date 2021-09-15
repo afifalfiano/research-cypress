@@ -6,6 +6,7 @@ import { DetailDataComponent } from 'src/app/shared/detail-data/detail-data.comp
 import { OverviewDetailComponent } from 'src/app/shared/overview-detail/overview-detail.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { UserTableItem } from 'src/app/users/user-table/user-table-datasource';
+import { CompanyFormComponent } from '../company-form/company-form.component';
 
 @Component({
   selector: 'app-company-table',
@@ -51,13 +52,34 @@ export class CompanyTableComponent implements OnInit {
 
   }
 
-  onBtnClickAddNewUser() {
+  onBtnClickAddNew(data) {
+    const dialogRef = this.dialog.open(CompanyFormComponent, {
+      width: '500px',
+      position: {
+        top: '100px'
+      },
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.doGetData();
+    });
     // this.router.navigateByUrl(this.router.url + '/create');
   }
 
   onBtnUpdate(data: any) {
     console.log(data);
-    // this.router.navigateByUrl(this.router.url + '/update/' + data.id, { state: { data } });
+    const dialogRef = this.dialog.open(CompanyFormComponent, {
+      width: '500px',
+      position: {
+        top: '100px'
+      },
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.doGetData();
+    });
   }
 
   onDelete(id: number) {

@@ -1,1 +1,22 @@
-<p>company-form works!</p>
+<div style="text-align: center;">
+    <h1 mat-dialog-title>Are you sure want to delete this data?</h1>
+    <div mat-dialog-content>
+      <!-- <p>Data will not be able to return</p> -->
+      <form [formGroup]="companyForm">
+          <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Company Name" formControlName="company_name">
+                  <mat-error *ngIf="companyForm.controls['company_name'].hasError('required')">
+                    Company name is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+          </div>
+      </form>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close="false" mat-raised-button color="warn">Cancel</button>
+        <button mat-button cdkFocusInitial [mat-dialog-close]="data" (click)="onSubmit()" mat-raised-button color="primary">Save</button>
+    </div>
+    </div>
