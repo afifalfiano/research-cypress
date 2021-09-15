@@ -1,5 +1,5 @@
 import { Company } from 'src/company/entities/company.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class User {
@@ -12,13 +12,13 @@ export class User {
     @Column()
     lastName: string;
 
-    @Column()
+    @Column({ nullable: true })
     photo_profile?: string;
 
     @Column()
     email: string;
 
-    @Column()
+    @Column({ nullable: true })
     phone: string;
 
     @Column()
@@ -30,16 +30,16 @@ export class User {
     @CreateDateColumn()
     tgl_input: Date;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, default: 'admin' })
     user_input: string;
 
     @UpdateDateColumn()
     tgl_update: Date;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, default: 'admin' })
     user_update: string;
 
-    @OneToOne(() => Company, (company) => company.id)
+    @ManyToOne(() => Company, (company) => company.user ,{onDelete: 'SET NULL'})
     @JoinColumn()
     company: Company;
 }

@@ -7,5 +7,5 @@ export class UpdateCompanyDto extends PartialType(CreateCompanyDto) {
     @IsNotEmpty()
     company_name?: string;
 
-    user?: User
+    user?: User[]
 }

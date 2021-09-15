@@ -8,13 +8,11 @@ export class CreateUserDto {
     @IsNotEmpty()
     lastName: string;
 
-    @IsNotEmpty()
     photo_profile?: string;
 
     @IsNotEmpty()
     email: string;
 
-    @IsNotEmpty()
     phone: string;
 
     @IsNotEmpty()
