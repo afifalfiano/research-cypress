@@ -10,7 +10,6 @@ import { of } from 'rxjs';
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
   @Post()
   @UseInterceptors(FileInterceptor('photo_profile',
       {
@@ -25,7 +24,10 @@ export class UsersController {
     )
   create(@Body() createUserDto: CreateUserDto, @UploadedFile() file: Express.Multer.File) {
     console.log(file);
-    createUserDto.photo_profile = file.originalname || file.filename;
+    console.log(createUserDto);
+    if (file !== undefined) {
+      createUserDto.photo_profile = file.originalname || file.filename;
+    }
     return this.usersService.create(createUserDto);
   }
 
