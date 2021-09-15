@@ -83,7 +83,7 @@ export class UserFormComponent implements OnInit {
     this.apiService.create('/api/users', body).subscribe((response: any) => {
       console.log(response);
       setTimeout(() => {
-        this.router.navigateByUrl('/users/');
+        this.router.navigateByUrl('users');
       }, 3000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
@@ -93,7 +93,7 @@ export class UserFormComponent implements OnInit {
     this.apiService.update('/api/users/' + this.data.id, body).subscribe((response: any) => {
       console.log(response);
       setTimeout(() => {
-        this.router.navigateByUrl('/users/');
+        this.router.navigateByUrl('users');
       }, 3000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
@@ -101,8 +101,6 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.fileToUpload, 'a');
-    // this.form.get('photo_profile').setValue(this.fileToUpload);
     const formData = new FormData();
     formData.append('photo_profile', this.fileToUpload);
     formData.append('firstName', this.form.value.firstName);
@@ -111,12 +109,11 @@ export class UserFormComponent implements OnInit {
     formData.append('phone', this.form.value.phone);
     formData.append('city', this.form.value.city);
     formData.append('country', this.form.value.country);
-    // formData.append('company', this.form.value.company);
-    const body = this.form.value;
+    formData.append('company', this.form.value.company);
     if (this.data === undefined) {
       this.doCreate(formData);
     } else {
-      this.doCreate(formData);
+      this.doUpdate(formData);
     }
   }
 }

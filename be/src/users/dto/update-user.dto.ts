@@ -11,7 +11,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     lastName?: string;
 
     @IsNotEmpty()
-    photo_profile?: string;
+    photo_profile?: any;
 
     @IsNotEmpty()
     email?: string;

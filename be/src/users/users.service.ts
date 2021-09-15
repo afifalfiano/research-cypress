@@ -21,7 +21,16 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<any> {
-    return await this.userRepository.update(+id, updateUserDto);
+    return await this.userRepository.update(id, {
+      firstName: updateUserDto.firstName,
+      lastName: updateUserDto.lastName,
+      photo_profile: updateUserDto.photo_profile,
+      email: updateUserDto.email,
+      phone: updateUserDto.phone,
+      city: updateUserDto.city,
+      country: updateUserDto.country,
+      company: updateUserDto.company
+    });
   }
 
   async remove(id: number): Promise<any> {

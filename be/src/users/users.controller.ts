@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, Res, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, Res, Query, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -47,8 +47,23 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
+  @UseInterceptors(FileInterceptor('photo_profile',
+      {
+        storage: diskStorage({
+          destination: './photo-profile', 
+          filename: (req, file, cb) => {
+          return cb(null, `${file.originalname}`)
+        }
+        })
+      }
+    )
+    )
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @UploadedFile() file: Express.Multer.File) {
+    console.log(updateUserDto)
+    if (file !== undefined) {
+      updateUserDto.photo_profile = file.originalname || file.filename;
+    }
     return this.usersService.update(+id, updateUserDto);
   }
 

@@ -22,7 +22,7 @@ export class ApiService {
   }
 
   update(url: any, body: any): Observable<any> {
-    return this.httpService.put(this.baseUrl + url, body);
+    return this.httpService.patch(this.baseUrl + url, body);
   }
 
   delete(url): Observable<any> {
