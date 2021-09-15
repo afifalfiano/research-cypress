@@ -1,7 +1,8 @@
 <div style="text-align: center;">
     <h1 mat-dialog-title>{{title}}</h1>
     <div mat-dialog-content>
-      <table>
+        <div *ngIf="user">
+      <table >
           <tr>
               <td>Name</td>
               <td>:</td>
@@ -33,5 +34,25 @@
               <td>{{data.tgl_update}}</td>
           </tr>
       </table>
+    </div>
+        <div *ngIf="!user">
+      <table>
+          <tr>
+              <td>Company</td>
+              <td>:</td>
+              <td>{{data.company_name}}</td>
+          </tr>
+          <tr>
+              <td>Tgl Input</td>
+              <td>:</td>
+              <td>{{data.tgl_input}}</td>
+          </tr>
+          <tr>
+              <td>Tgl Update</td>
+              <td>:</td>
+              <td>{{data.tgl_update}}</td>
+          </tr>
+      </table>
+    </div>
     </div>
     </div>

@@ -21,7 +21,9 @@ export class CompanyService {
   }
 
   async update(id: number, updateCompanyDto: UpdateCompanyDto): Promise<any> {
-    return await this.companyRepository.update(id, updateCompanyDto);
+    return await this.companyRepository.update(id, {
+      company_name: updateCompanyDto.company_name
+    });
   }
 
   async remove(id: number): Promise<any> {

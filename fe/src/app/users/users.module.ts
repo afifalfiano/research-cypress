@@ -11,7 +11,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UserViewComponent } from './user-view/user-view.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -19,7 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
-  declarations: [UsersComponent, UserFormComponent, UserViewComponent, UserTableComponent],
+  declarations: [UsersComponent, UserFormComponent, UserTableComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

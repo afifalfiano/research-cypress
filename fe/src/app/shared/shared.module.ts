@@ -53,6 +53,7 @@ const materialModules = [
 
 @NgModule({
   imports: [
+    CommonModule,
     ...materialModules,
   ],
   exports: [

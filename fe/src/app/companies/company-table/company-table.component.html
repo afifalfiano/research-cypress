@@ -1,0 +1,46 @@
+<div class="grid-container">
+    <div class="add-data">
+        <h1 class="mat-h1">Companies</h1>
+        <button mat-flat-button color="primary" (click)="onBtnClickAddNew()">Tambah</button>
+    </div>
+    <mat-grid-list cols="1" rowHeight="350px">
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width-table" [dataSource]="dataSource" aria-label="Elements">
+    <!-- Id Column -->
+    <ng-container matColumnDef="no">
+      <th mat-header-cell *matHeaderCellDef>No</th>
+      <td mat-cell *matCellDef="let row; let i = index">{{row.no}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="company_name">
+      <th mat-header-cell *matHeaderCellDef>Company</th>
+      <td mat-cell *matCellDef="let row">{{row.company_name}}</td>
+    </ng-container>
+
+    <!-- Aksi Column -->
+    <ng-container matColumnDef="aksi">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Aksi</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="action">
+          <button mat-button (click)="onBtnViewDetail(row)">
+            <mat-icon aria-label="remove_red_eye" fontIcon="20">remove_red_eye</mat-icon>
+          </button>
+          <button mat-button (click)="onBtnUpdate(row)">
+            <mat-icon aria-label="edit" fontIcon="20">edit</mat-icon>
+          </button>
+          <button mat-button (click)="onBtnDelete(row)">
+            <mat-icon aria-label="delete" fontIcon="20">delete</mat-icon>
+          </button>
+          </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+</mat-grid-list>
+</div>

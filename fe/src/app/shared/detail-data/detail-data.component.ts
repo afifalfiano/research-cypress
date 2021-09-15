@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class DetailDataComponent implements OnInit {
   title = 'User';
+  user = true;
   constructor(
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
@@ -15,8 +16,10 @@ export class DetailDataComponent implements OnInit {
     console.log(this.data);
     if (this.data.title === 'Detail User') {
       this.title = 'Detail User';
+      this.user = true;
     } else if (this.data.title === 'Detail Company') {
       this.title = 'Detail Company';
+      this.user = false;
     }
   }
 
