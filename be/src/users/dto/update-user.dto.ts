@@ -10,20 +10,19 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     @IsNotEmpty()
     lastName?: string;
 
-    @IsNotEmpty()
     photo_profile?: any;
 
-    @IsNotEmpty()
     email?: string;
 
-    @IsNotEmpty()
     phone?: string;
 
-    @IsNotEmpty()
     city?: string;
 
-    @IsNotEmpty()
     country?: string;
+
+    password?: string
+
+    jwt_token?: string;
 
     company?: Company;
 }

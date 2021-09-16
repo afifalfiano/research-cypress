@@ -1,16 +1,17 @@
 import { Company } from 'src/company/entities/company.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne, BeforeInsert } from 'typeorm';
+import * as bcrypt from 'bcryptjs';
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     firstName: string;
 
-    @Column()
-    lastName: string;
+    @Column({ nullable: true })
+    lastName?: string;
 
     @Column({ nullable: true })
     photo_profile?: string;
@@ -19,13 +20,19 @@ export class User {
     email: string;
 
     @Column({ nullable: true })
-    phone: string;
+    phone?: string;
+
+    @Column({ nullable: true })
+    city?: string;
+
+    @Column({ nullable: true })
+    country?: string;
+
+    @Column({ nullable: true })
+    jwt_token?: string;
 
     @Column()
-    city: string;
-
-    @Column()
-    country: string;
+    password: string;
 
     @CreateDateColumn()
     tgl_input: Date;
@@ -39,7 +46,17 @@ export class User {
     @Column({ nullable: true, default: 'admin' })
     user_update: string;
 
+    @BeforeInsert()
+    async hashPassword() {
+        this.password = await bcrypt.hash(this.password, 8);
+    }
+
+    async validatePassword(password: string): Promise<boolean> {
+        return bcrypt.compare(password, this.password);
+    }
+
     @ManyToOne(() => Company, (company) => company.user ,{onDelete: 'SET NULL'})
     @JoinColumn()
     company: Company;
+    nama: any;
 }

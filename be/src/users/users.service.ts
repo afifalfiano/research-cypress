@@ -9,7 +9,9 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
-    return await this.userRepository.save(createUserDto);
+    console.log(createUserDto);
+    return null;
+    // return await this.userRepository.save(createUserDto);
   }
 
   async findAll(): Promise<User[]> {
@@ -20,16 +22,15 @@ export class UsersService {
     return await this.userRepository.findOne(id);
   }
 
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOne({
+      where: {email: email}
+    });
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto): Promise<any> {
     return await this.userRepository.update(id, {
-      firstName: updateUserDto.firstName,
-      lastName: updateUserDto.lastName,
-      photo_profile: updateUserDto.photo_profile,
-      email: updateUserDto.email,
-      phone: updateUserDto.phone,
-      city: updateUserDto.city,
-      country: updateUserDto.country,
-      company: updateUserDto.company
+      ...updateUserDto
     });
   }
 

@@ -5,21 +5,21 @@ export class CreateUserDto {
     @IsNotEmpty()
     firstName: string;
 
-    @IsNotEmpty()
-    lastName: string;
+    lastName?: string;
 
     photo_profile?: string;
 
-    @IsNotEmpty()
     email: string;
 
-    phone: string;
+    phone?: string;
 
-    @IsNotEmpty()
-    city: string;
+    city?: string;
 
-    @IsNotEmpty()
-    country: string;
+    country?: string;
+
+    password: string
+
+    jwt_token?: string;
 
     company?: Company;
 
