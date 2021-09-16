@@ -46,15 +46,6 @@ export class User {
     @Column({ nullable: true, default: 'admin' })
     user_update: string;
 
-    @BeforeInsert()
-    async hashPassword() {
-        this.password = await bcrypt.hash(this.password, 8);
-    }
-
-    async validatePassword(password: string): Promise<boolean> {
-        return bcrypt.compare(password, this.password);
-    }
-
     @ManyToOne(() => Company, (company) => company.user ,{onDelete: 'SET NULL'})
     @JoinColumn()
     company: Company;
