@@ -8,12 +8,14 @@ import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from './services/auth.service';
 import { LoginGuard } from './services/login.guard';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [AuthComponent, SigninComponent, SignupComponent],
   imports: [
     CommonModule,
+    RouterModule,
     AuthRoutingModule,
     SharedModule
   ],
