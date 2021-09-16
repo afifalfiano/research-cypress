@@ -13,6 +13,7 @@ import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModul
 import { OverviewDetailComponent } from './overview-detail/overview-detail.component';
 import { ApiService } from './services/api.service';
 import { DetailDataComponent } from './detail-data/detail-data.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 const materialModules = [
@@ -48,6 +49,12 @@ const materialModules = [
   PortalModule,
   FormsModule,
   ReactiveFormsModule,
+  LayoutModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
 ];
 
 

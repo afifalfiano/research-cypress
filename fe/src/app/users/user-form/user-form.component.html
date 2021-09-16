@@ -66,7 +66,6 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <!-- <input matInput  maxlength="5" placeholder="Postal Code" type="number" formControlName="postalCode"> -->
             <mat-select formControlName="company" placeholder="Company" >
               <mat-option>-</mat-option>
               <mat-option  *ngFor="let data of dataCompany" [value]="data.id">{{data.company_name}}</mat-option>

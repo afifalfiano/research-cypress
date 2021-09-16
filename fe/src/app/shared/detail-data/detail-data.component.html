@@ -2,7 +2,7 @@
     <h1 mat-dialog-title>{{title}}</h1>
     <div mat-dialog-content>
         <div *ngIf="user">
-      <table >
+      <table class="detail" >
           <tr>
               <td>Name</td>
               <td>:</td>
@@ -24,33 +24,33 @@
               <td>{{data.country}}</td>
           </tr>
           <tr>
-              <td>Tgl Input</td>
+              <td>Tanggal Input</td>
               <td>:</td>
-              <td>{{data.tgl_input}}</td>
+              <td>{{data?.tgl_input | date: 'longDate'}}</td>
           </tr>
           <tr>
-              <td>Tgl Update</td>
+              <td>Tanggal Update</td>
               <td>:</td>
-              <td>{{data.tgl_update}}</td>
+              <td>{{data.tgl_update | date: 'longDate'}}</td>
           </tr>
       </table>
     </div>
         <div *ngIf="!user">
-      <table>
+      <table class="detail">
           <tr>
               <td>Company</td>
               <td>:</td>
               <td>{{data.company_name}}</td>
           </tr>
           <tr>
-              <td>Tgl Input</td>
+              <td>Tanggal Input</td>
               <td>:</td>
-              <td>{{data.tgl_input}}</td>
+              <td>{{data.tgl_input | date: 'longDate' }}</td>
           </tr>
           <tr>
-              <td>Tgl Update</td>
+              <td>Tanggal Update</td>
               <td>:</td>
-              <td>{{data.tgl_update}}</td>
+              <td>{{data.tgl_update | date: 'longDate'}}</td>
           </tr>
       </table>
     </div>

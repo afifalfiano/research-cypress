@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from '../shared/services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +23,7 @@ export class NavbarComponent implements OnInit{
     );
 
   // tslint:disable-next-line:max-line-length
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private authService: AuthService, private apiService: ApiService) {}
+  constructor(private breakpointObserver: BreakpointObserver, private toatsrService: ToastrService, private router: Router, private authService: AuthService, private apiService: ApiService) {}
   ngOnInit() {
     this.email = JSON.parse(localStorage.getItem('token'));
     if (this.email === null) {
@@ -38,8 +39,11 @@ export class NavbarComponent implements OnInit{
       console.log(response);
       localStorage.clear();
       this.apiService.reload();
-      this.router.navigateByUrl('auth/signin');
-      window.location.reload();
+      this.toatsrService.success('Success Logout!');
+      setTimeout(() => {
+        this.router.navigateByUrl('auth/signin');
+        window.location.reload();
+      }, 2000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
     });

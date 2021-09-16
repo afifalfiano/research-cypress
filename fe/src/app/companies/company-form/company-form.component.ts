@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class CompanyFormComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<any>,
     private apiService: ApiService,
+    private toastrService: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
   ngOnInit(): void {
     this.doInitForm();
@@ -35,20 +37,24 @@ export class CompanyFormComponent implements OnInit {
   onCreate(body: any) {
     this.apiService.create('/api/company', body).subscribe((response) => {
       console.log(response);
+      this.toastrService.success('Success Create!');
       setTimeout(() => {
         this.dialogRef.close();
       }, 2000);
     }, (err: HttpErrorResponse) => {
+      this.toastrService.error('Error Create!');
       console.log(err);
     });
   }
   onUpdate(body: any) {
     this.apiService.update('/api/company/' + this.data.id, body).subscribe((response) => {
       console.log(response);
+      this.toastrService.success('Success Update!');
       setTimeout(() => {
         this.dialogRef.close();
       }, 2000);
     }, (err: HttpErrorResponse) => {
+      this.toastrService.error('Error Update!');
       console.log(err);
     });
   }

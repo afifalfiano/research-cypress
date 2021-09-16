@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DetailDataComponent } from 'src/app/shared/detail-data/detail-data.component';
 import { OverviewDetailComponent } from 'src/app/shared/overview-detail/overview-detail.component';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -24,7 +25,7 @@ export class UserTableComponent implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['no', 'fullname', 'photo', 'email', 'phone', 'city', 'country', 'company', 'aksi'];
-  constructor(private apiService: ApiService, private router: Router, private dialog: MatDialog) {}
+  constructor(private apiService: ApiService, private router: Router, private dialog: MatDialog, private toastrService: ToastrService) {}
   ngOnInit() {
     this.doGetData();
   }
@@ -72,9 +73,11 @@ export class UserTableComponent implements AfterViewInit, OnInit {
   onDelete(id: number) {
     this.apiService.delete('/api/users/' + id).subscribe((response: any) => {
       console.log(response);
+      this.toastrService.success('Success Delete');
       this.doGetData();
     }, (err: HttpErrorResponse) => {
       console.log(err);
+      this.toastrService.error('Error Delete');
     });
   }
   onBtnDelete(data: any) {

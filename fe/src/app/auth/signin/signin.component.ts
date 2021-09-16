@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from '../services/auth.service';
 
@@ -15,7 +16,8 @@ export class SigninComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   });
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private apiService: ApiService) { }
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private apiService: ApiService,
+              private toatsrService: ToastrService) { }
 
   ngOnInit() {
   }
@@ -30,12 +32,14 @@ export class SigninComponent implements OnInit {
       const token = JSON.stringify(response);
       localStorage.setItem('token', token);
       this.apiService.reload();
-      this.router.navigateByUrl('/users');
+      this.toatsrService.success('Success Login!');
       setTimeout(() => {
+        this.router.navigateByUrl('/users');
         window.location.reload();
       }, 2000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
+      this.toatsrService.error('Failed Login!');
     });
   }
 

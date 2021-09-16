@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'FE';
   baseUrl;
   imageUrl;
-  constructor(private httpService: HttpClient) {
+  constructor(private httpService: HttpClient, private toastrService: ToastrService) {
     this.baseUrl = environment.baseUrl;
   }
 

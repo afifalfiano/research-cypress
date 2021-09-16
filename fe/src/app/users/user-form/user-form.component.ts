@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscriber, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -20,7 +21,7 @@ export class UserFormComponent implements OnInit {
   dataCompany: any;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private location: Location, private apiService: ApiService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private toastrService: ToastrService, private router: Router, private location: Location, private apiService: ApiService) {
     this.data = this.router.getCurrentNavigation().extras.state;
     if (this.data !== undefined) {
       this.data = this.data.data;
@@ -76,27 +77,32 @@ export class UserFormComponent implements OnInit {
       this.dataCompany = response;
     }, (err: HttpErrorResponse) => {
       console.log(err);
+      this.toastrService.error('Failed Data Company');
     });
   }
 
   doCreate(body: any) {
     this.apiService.create('/api/users', body).subscribe((response: any) => {
       console.log(response);
+      this.toastrService.success('Success Create');
       setTimeout(() => {
         this.router.navigateByUrl('users');
       }, 3000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
+      this.toastrService.error('Error Create');
     });
   }
   doUpdate(body: any) {
     this.apiService.update('/api/users/' + this.data.id, body).subscribe((response: any) => {
       console.log(response);
+      this.toastrService.success('Success Update');
       setTimeout(() => {
         this.router.navigateByUrl('users');
       }, 3000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
+      this.toastrService.error('Error Update');
     });
   }
 

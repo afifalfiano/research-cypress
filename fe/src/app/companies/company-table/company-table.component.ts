@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DetailDataComponent } from 'src/app/shared/detail-data/detail-data.component';
 import { OverviewDetailComponent } from 'src/app/shared/overview-detail/overview-detail.component';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -22,7 +23,7 @@ export class CompanyTableComponent implements OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['no', 'company_name', 'aksi'];
-  constructor(private apiService: ApiService, private router: Router, private dialog: MatDialog) {}
+  constructor(private apiService: ApiService, private router: Router, private dialog: MatDialog, private toastrService: ToastrService) {}
   ngOnInit() {
     this.doGetData();
   }
@@ -85,8 +86,10 @@ export class CompanyTableComponent implements OnInit {
   onDelete(id: number) {
     this.apiService.delete('/api/company/' + id).subscribe((response: any) => {
       console.log(response);
+      this.toastrService.success('Success Delete!');
       this.doGetData();
     }, (err: HttpErrorResponse) => {
+      this.toastrService.error('Error Delete!');
       console.log(err);
     });
   }

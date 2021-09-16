@@ -8,7 +8,7 @@ export class User {
     id: number;
 
     @Column({ nullable: true })
-    firstName: string;
+    firstName?: string;
 
     @Column({ nullable: true })
     lastName?: string;
@@ -31,8 +31,8 @@ export class User {
     @Column({ nullable: true })
     jwt_token?: string;
 
-    @Column()
-    password: string;
+    @Column({default: 'Admin12345'})
+    password?: string;
 
     @CreateDateColumn()
     tgl_input: Date;
