@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class ApiService {
   baseUrl: any;
 
-  constructor(private httpService: HttpClient) {
+  constructor(private httpService: HttpClient, private router: Router) {
     this.baseUrl = environment.baseUrl;
   }
 
@@ -28,4 +29,22 @@ export class ApiService {
   delete(url): Observable<any> {
     return this.httpService.delete(this.baseUrl + url);
   }
+
+  reload() {
+    this.router.navigateByUrl(this.router.url, { skipLocationChange: true }).then(() => {
+      const token = JSON.parse(localStorage.getItem('token'));
+      if (token === null) {
+        this.router.navigateByUrl('/auth/signin');
+      } else {
+        this.router.navigateByUrl('/users');
+      }
+  });
+  }
+
+  reloadComponent() {
+    const currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+    }
 }

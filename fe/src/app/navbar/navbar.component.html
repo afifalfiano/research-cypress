@@ -7,6 +7,7 @@
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/users']" routerLinkActive="router-link-active" >Users</a>
       <a mat-list-item [routerLink]="['/companies']">Companies</a>
+      <a mat-list-item (click)="onClickLogout()" *ngIf="token === false">Log Out</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -19,7 +20,8 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Demo Cypress</span>
+      <span style="padding-right: 10px;">Demo Cypress | </span>
+      <span>Hello, {{email?.user.name || 'Visitor'}}</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="container">
