@@ -28,7 +28,25 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
+import { environment } from '../../src/environments/environment';
+Cypress.Commands.add('login', (email, password) => {
+    cy.visit('/');
+    cy.contains('Demo Cypress | Hello, Visitor');
+    cy.get('form').within((form) => {
+        cy.get('input[formControlName="email"]').type(email);
+        cy.get('input[formControlName="email"]').should('have.value', email);
+        cy.get('input[formControlName="password"]').type(password);
+        cy.get('input[formControlName="password"]').should('have.value', password);
+        cy.get('button').contains('Login').click();
+    });
+
+    cy.request({method: 'POST', url: environment.baseUrl + '/api/auth/login', body: {email,  password}}).as('login-app');
+    cy.get('@login-app').should((response) => {
+        Cypress.env('login', response['body']);
+        expect(response['status']).to.equal(201);
+        expect(response['body'].user.email).equal(email);
+    });
+ });
 //
 //
 // -- This is a child command --
