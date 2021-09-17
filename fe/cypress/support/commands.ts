@@ -47,6 +47,15 @@ Cypress.Commands.add('login', (email, password) => {
         expect(response['body'].user.email).equal(email);
     });
  });
+
+Cypress.Commands.add('logout', (email) => {
+    cy.get('div').should('have.class', 'mat-list-item-content').contains('Log Out');
+    cy.request({method: 'POST', url: environment.baseUrl + '/api/auth/logout', body: {email}}).as('logout-app');
+    cy.get('@logout-app').should((response) => {
+        expect(response['status']).to.equal(201);
+        expect(response['body'].message).equal('Success Logout');
+    });
+ });
 //
 //
 // -- This is a child command --
