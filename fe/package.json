@@ -10,9 +10,7 @@
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:run:record": "npx cypress run --record --key 4dd513c1-52f8-41a6-96ca-230125afd9f4",
-    "preinstall": "cd ../be && npm i  && npm run build",
-    "run:be": "cd ../be && npm run start:prod"
+    "cypress:run:record": "npx cypress run --record --key 4dd513c1-52f8-41a6-96ca-230125afd9f4"
   },
   "private": true,
   "dependencies": {
