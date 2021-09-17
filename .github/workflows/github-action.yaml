@@ -16,7 +16,7 @@ jobs:
           record: true
           working-directory: fe
           build: npm run build
-          start: npm start
+          start: npm start preinstall && npm run start
           wait-on: 'http://localhost:4200'
           config: baseUrl=http://localhost:4200
         env:
