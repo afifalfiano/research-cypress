@@ -14,8 +14,9 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: true
-          build: npm run preinstall && npm run preinstall
-          start: npm run run:be && npm run run:fe
+          working-directory: fe
+          build: npm run build
+          start: npm start
           wait-on: 'http://localhost:4200'
           config: baseUrl=http://localhost:4200
         env:
