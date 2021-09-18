@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthInterceptor } from './auth/services/interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthService } from './auth/services/auth.service';
 
 
 @NgModule({

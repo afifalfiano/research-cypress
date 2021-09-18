@@ -3,9 +3,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginGuard } from './auth/services/login.guard';
 import { SigninComponent } from './auth/signin/signin.component';
 
+let route;
+const  data = () => {
+  const token = localStorage.getItem('token');
+  if (token === null) {
+    return route = 'auth';
+  } else {
+    return route = 'users';
+  }
+};
+
+data();
+console.log(route, 'ro');
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth', pathMatch: 'full'},
+  { path: '', redirectTo: route, pathMatch: 'full'},
   { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule), canActivate: [LoginGuard] },
   // tslint:disable-next-line:max-line-length
   { path: 'companies', loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule), canActivate: [LoginGuard]  },

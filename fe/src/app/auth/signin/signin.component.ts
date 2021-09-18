@@ -31,11 +31,12 @@ export class SigninComponent implements OnInit {
       console.log(response);
       const token = JSON.stringify(response);
       localStorage.setItem('token', token);
-      this.apiService.reload();
       this.toatsrService.success('Success Login!');
+      this.authService.statusLogin(true);
+      this.router.navigateByUrl('/users');
       setTimeout(() => {
-        this.router.navigateByUrl('/users');
         window.location.reload();
+        // this.apiService.reload();
       }, 2000);
     }, (err: HttpErrorResponse) => {
       console.log(err);

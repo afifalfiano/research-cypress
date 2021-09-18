@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavbarComponent implements OnInit{
   email;
-  token = true;
+  token = false;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -26,11 +26,26 @@ export class NavbarComponent implements OnInit{
   constructor(private breakpointObserver: BreakpointObserver, private toatsrService: ToastrService, private router: Router, private authService: AuthService, private apiService: ApiService) {}
   ngOnInit() {
     this.email = JSON.parse(localStorage.getItem('token'));
-    if (this.email === null) {
-      this.token = true;
+    console.log(this.email, 'token');
+    if (this.email !== null) {
+      this.authService.statusLogin(true);
     } else {
-      this.token = false;
+      this.authService.statusLogin(false);
     }
+    this.listenStatus();
+  }
+
+  listenStatus() {
+    this.authService.isLogin().subscribe((response) => {
+      console.log(response, 'ee');
+      if (response) {
+        this.token =  (true);
+      } else {
+        this.token = (false);
+      }
+    }, (err: HttpErrorResponse) => {
+      console.log(err);
+    });
   }
 
   onClickLogout() {
@@ -38,11 +53,12 @@ export class NavbarComponent implements OnInit{
     this.authService.logout({email: email.user.email}).subscribe((response: any) => {
       console.log(response);
       localStorage.clear();
-      this.apiService.reload();
+      // this.apiService.reload();
+      this.authService.statusLogin(false);
       this.toatsrService.success('Success Logout!');
       setTimeout(() => {
         this.router.navigateByUrl('auth/signin');
-        window.location.reload();
+        // window.location.reload();
       }, 2000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
