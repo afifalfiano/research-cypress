@@ -48,6 +48,16 @@ describe('Company Test', () => {
         cy.get('table').children('tbody').get('tr').last().as('new-company');
         cy.get('@new-company').contains('td', 'UII Jakal');
     });
+
+    it('Detail company', () => {
+        cy.get('table').children('tbody').get('tr').last().as('new-company');
+        cy.get('@new-company').contains('td', 'UII');
+        // tslint:disable-next-line:max-line-length
+        cy.get('@new-company').children('td').children('div').should('have.class', 'action').children('button').contains('mat-icon', 'remove_red_eye').click();
+        cy.get('h1').contains('Detail Company');
+        cy.get('.cdk-overlay-backdrop').click(-50, -50, { force: true });
+    });
+
     it('Delete company', () => {
         cy.get('table').children('tbody').get('tr').last().as('new-company');
         cy.get('@new-company').contains('td', 'UII Jakal');
@@ -60,7 +70,7 @@ describe('Company Test', () => {
     });
 
     afterEach(() => {
-        cy.wait(5000);
+        cy.wait(3000);
         // cy.logout('afifalfiano2@gmail.com');
     });
   });

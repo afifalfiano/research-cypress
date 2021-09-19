@@ -13,7 +13,6 @@ describe('Users Test', () => {
                 expect(response['status']).to.equal(200);
             });
         }
-        cy.wait(5000);
     });
 
     it('Create new user', () => {
@@ -58,6 +57,15 @@ describe('Users Test', () => {
             }
         });
     });
+
+    it('Detail user', () => {
+        cy.get('table').children('tbody').get('tr').last().as('new-input');
+        cy.get('@new-input').contains('td', 'afifalfiano1@gmail.com');
+        // tslint:disable-next-line:max-line-length
+        cy.get('@new-input').children('td').children('div').should('have.class', 'action').children('button').contains('mat-icon', 'remove_red_eye').click();
+        cy.get('h1').contains('Detail User');
+        cy.get('.cdk-overlay-backdrop').click(-50, -50, { force: true });
+    });
     it('Delete user', () => {
         cy.get('table').children('tbody').get('tr').last().as('new-input');
         cy.get('@new-input').contains('td', 'afifalfiano1@gmail.com');
@@ -68,7 +76,7 @@ describe('Users Test', () => {
     });
 
     afterEach(() => {
-        cy.wait(5000);
+        cy.wait(3000);
         // cy.logout('afifalfiano2@gmail.com');
     });
   }); 

@@ -20,7 +20,7 @@ describe('Register Account', () => {
     });
 
     afterEach(() => {
-        cy.wait(5000);
+        cy.wait(3000);
         // cy.logout('afifalfiano2@gmail.com');
     });
   });
