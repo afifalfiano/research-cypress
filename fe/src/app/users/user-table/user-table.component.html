@@ -15,7 +15,7 @@
     <!-- Photo Column -->
     <ng-container matColumnDef="photo">
       <th mat-header-cell *matHeaderCellDef>Photo</th>
-      <td mat-cell *matCellDef="let row"><a [href]="'http://localhost:3000/api/users/' + row.id + '/profile?filename=' + row.photo_profile" target="_blank"><img [src]="'http://localhost:3000/api/users/' + row.id + '/profile?filename=' + row.photo_profile" width="100px" alt=""></a></td>
+      <td mat-cell *matCellDef="let row"><a [href]="'http://localhost:3000/api/users/' + row.id + '/profile?filename=' + row.photo_profile" target="_blank"><img [src]="'http://localhost:3000/api/users/' + row.id + '/profile?filename=' + row.photo_profile" width="100px" alt="{{row.photo_profile !== 'null' ? row.photo_profile : null }}"></a></td>
     </ng-container>
 
     <!-- Name Column -->

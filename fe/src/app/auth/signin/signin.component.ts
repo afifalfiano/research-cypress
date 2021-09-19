@@ -33,11 +33,9 @@ export class SigninComponent implements OnInit {
       localStorage.setItem('token', token);
       this.toatsrService.success('Success Login!');
       this.authService.statusLogin(true);
-      this.router.navigateByUrl('/users');
       setTimeout(() => {
-        window.location.reload();
-        // this.apiService.reload();
-      }, 2000);
+        this.router.navigateByUrl('/users');
+      }, 1000);
     }, (err: HttpErrorResponse) => {
       console.log(err);
       this.toatsrService.error('Failed Login!');

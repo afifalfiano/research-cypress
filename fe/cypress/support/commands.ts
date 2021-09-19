@@ -29,6 +29,7 @@
 //
 // -- This is a parent command --
 import { environment } from '../../src/environments/environment';
+import 'cypress-file-upload';
 Cypress.Commands.add('login', (email, password) => {
     cy.visit('/');
     cy.contains('Demo Cypress | Hello, Visitor');
