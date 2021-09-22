@@ -7,7 +7,10 @@ import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import { of } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth('XYZ')
+@ApiTags('users')
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -32,6 +35,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @ApiOkResponse({ type: CreateUserDto, isArray: true })
   @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
