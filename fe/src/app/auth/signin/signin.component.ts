@@ -12,10 +12,12 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+  isLoggedin = false;
   form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   });
+  users;
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private apiService: ApiService,
               private toatsrService: ToastrService) { }
 
@@ -30,14 +32,14 @@ export class SigninComponent implements OnInit {
     this.authService.login(body).subscribe((response: any) => {
       console.log(response);
       const token = JSON.stringify(response);
+      this.users = response.user;
       localStorage.setItem('token', token);
       this.toatsrService.success('Success Login!');
       this.authService.statusLogin(true);
-      setTimeout(() => {
-        this.router.navigateByUrl('/users');
-      }, 1000);
+      this.isLoggedin = true;
     }, (err: HttpErrorResponse) => {
       console.log(err);
+      this.isLoggedin = false;
       this.toatsrService.error('Failed Login!');
     });
   }

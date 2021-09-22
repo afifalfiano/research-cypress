@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 describe('Company Test', () => {
     beforeEach(() => {
         cy.login('afifalfiano2@gmail.com', 'Admin12345');
+        cy.get('h1').should('contain.text', 'Selamat Datang');
         const token = Cypress.env('login');
         if (token !== undefined) {
             // tslint:disable-next-line:max-line-length
@@ -13,10 +14,10 @@ describe('Company Test', () => {
             });
         }
         cy.get('a').contains('Companies').click();
+        cy.wait(2000);
     });
 
     it('Create new company', () => {
-        cy.get('a').contains('Companies').click();
         cy.get('button').contains('Tambah').click();
         cy.get('mat-dialog-container');
         cy.wait(1000);
@@ -26,12 +27,12 @@ describe('Company Test', () => {
         });
         cy.get('button').contains('Save').click(-50, -50, { force: true });
         cy.get('a').contains('Companies').click();
+        cy.wait(1000);
         cy.get('table').children('tbody').get('tr').last().as('new-company');
         cy.get('@new-company').contains('td', 'UII');
     });
 
     it('Update company', () => {
-        cy.get('a').contains('Companies').click();
         cy.get('table').children('tbody').get('tr').last().as('new-company');
         cy.get('@new-company').contains('td', 'UII');
         // tslint:disable-next-line:max-line-length
@@ -44,12 +45,12 @@ describe('Company Test', () => {
         });
         cy.get('button').contains('Save').click(-50, -50, { force: true });
         cy.get('a').contains('Companies').click();
+        cy.wait(1000);
         cy.get('table').children('tbody').get('tr').last().as('new-company');
         cy.get('@new-company').contains('td', 'UII Jakal');
     });
 
     it('Detail company', () => {
-        cy.get('a').contains('Companies').click();
         cy.get('table').children('tbody').get('tr').last().as('new-company');
         cy.get('@new-company').contains('td', 'UII');
         // tslint:disable-next-line:max-line-length
@@ -59,13 +60,13 @@ describe('Company Test', () => {
     });
 
     it('Delete company', () => {
-        cy.get('a').contains('Companies').click();
         cy.get('table').children('tbody').get('tr').last().as('new-company');
         cy.get('@new-company').contains('td', 'UII Jakal');
         // tslint:disable-next-line:max-line-length
         cy.get('@new-company').children('td').children('div').should('have.class', 'action').children('button').contains('mat-icon', 'delete').click();
         cy.get('mat-dialog-container').contains('Yes').click(-50, -50, { force: true });
         cy.get('a').contains('Companies').click();
+        cy.wait(1000);
         cy.get('table').children('tbody').get('tr').last().children('td').should('not.contain.value', 'UII Jakal');
     });
 
