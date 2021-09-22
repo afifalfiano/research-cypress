@@ -3,8 +3,7 @@ import { environment } from 'src/environments/environment';
 describe('Company Test', () => {
     beforeEach(() => {
         cy.login('afifalfiano2@gmail.com', 'Admin12345');
-        cy.get('a').contains('Companies').click();
-        cy.get('h1').contains('Companies');
+        cy.get('h1').should('contain.text', 'Selamat Datang');
         const token = Cypress.env('login');
         if (token !== undefined) {
             // tslint:disable-next-line:max-line-length
@@ -14,6 +13,8 @@ describe('Company Test', () => {
                 expect(response['status']).to.equal(200);
             });
         }
+        cy.get('a').contains('Companies').click();
+        cy.wait(2000);
     });
 
     it('Create new company', () => {
@@ -71,6 +72,6 @@ describe('Company Test', () => {
 
     afterEach(() => {
         cy.wait(3000);
-        // cy.logout('afifalfiano2@gmail.com');
+        cy.logout('afifalfiano2@gmail.com');
     });
   });

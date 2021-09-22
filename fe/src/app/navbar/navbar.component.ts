@@ -45,6 +45,7 @@ export class NavbarComponent implements OnInit{
       this.toatsrService.success('Success Logout!');
       setTimeout(() => {
         this.router.navigateByUrl('auth/signin');
+        window.location.reload();
       }, 1000);
     }, (err: HttpErrorResponse) => {
       console.log(err);

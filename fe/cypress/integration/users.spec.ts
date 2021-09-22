@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 describe('Users Test', () => {
     beforeEach(() => {
         cy.login('afifalfiano2@gmail.com', 'Admin12345');
-        cy.get('h1').contains('Users');
+        cy.get('h1').should('contain.text', 'Selamat Datang');
         const token = Cypress.env('login');
         if (token !== undefined) {
             // tslint:disable-next-line:max-line-length
@@ -13,19 +13,20 @@ describe('Users Test', () => {
                 expect(response['status']).to.equal(200);
             });
         }
+        cy.get('a').contains('Users').click();
+        cy.wait(2000);
     });
 
     it('Create new user', () => {
         cy.get('button').contains('Tambah').click();
-        let i = 1;
         cy.get('form').within((form) => {
             cy.get('input[formControlName="photo_profile"]').attachFile('profile-create.jpeg');
             cy.get('input[formControlName="firstName"]').type('Alfiano');
             cy.get('input[formControlName="firstName"]').should('have.value', 'Alfiano');
             cy.get('input[formControlName="lastName"]').type('Hermasyah');
             cy.get('input[formControlName="lastName"]').should('have.value', 'Hermasyah');
-            cy.get('input[formControlName="email"]').type('afifalfiano' + i + '@gmail.com');
-            cy.get('input[formControlName="email"]').should('have.value', 'afifalfiano' + i + '@gmail.com');
+            cy.get('input[formControlName="email"]').type('afifalfiano1@gmail.com');
+            cy.get('input[formControlName="email"]').should('have.value', 'afifalfiano1@gmail.com');
             cy.get('input[formControlName="phone"]').type('0812312313');
             cy.get('input[formControlName="phone"]').should('have.value', '0812312313');
             cy.get('input[formControlName="city"]').type('Yogyakarta');
@@ -77,6 +78,6 @@ describe('Users Test', () => {
 
     afterEach(() => {
         cy.wait(3000);
-        // cy.logout('afifalfiano2@gmail.com');
+        cy.logout('afifalfiano2@gmail.com');
     });
   }); 
