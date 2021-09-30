@@ -15,3 +15,6 @@
 2. Open project -> cd be -> npm install -> npm run start:dev
 3. From the repository be -> cd ../fe -> npm install -> npm run start:dev
 4. Test on localhost:4200
+
+### Architecture
+![Architecture](arch.png)
