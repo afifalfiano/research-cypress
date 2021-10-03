@@ -4,7 +4,7 @@
 3. <del>Consume api (angular - done)</del>
 4. <del>Create ui (angular - done)</del>
 5. Create testing e2e for crud on user and company (angular - on going)
-6. Create auth for login and signup on be (nest - on going)
+6. <del>Create auth for login and signup on be (nest - done)</del>
 
 ### Feature FE that we need to test
 1. Menu User: create, update, delete, view detail, upload image, view image
