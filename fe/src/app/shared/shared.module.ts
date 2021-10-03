@@ -67,7 +67,7 @@ const materialModules = [
     ...materialModules
   ],
   providers: [ApiService],
-  entryComponent: [DetailDataComponent, OverviewDetailComponent],
+  entryComponents: [DetailDataComponent, OverviewDetailComponent],
   declarations: [OverviewDetailComponent, DetailDataComponent]
 })
 export class SharedModule { }
